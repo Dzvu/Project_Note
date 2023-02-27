@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+.form-group {
+  padding: 10px;
+  }
+
+
+</style>
+<div class="container mt-5 form-container">
+  <h4 class="text-center mb-4">Create Note</h4>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group form-field">
+      <label for="title">Title:</label>
+      <input type="text" name="title" id="title" class="form-control form-input">
+    </div>
+    <div class="form-group form-field">
+      <label for="content">Content:</label>
+      <textarea name="content" id="content" class="form-control form-input"></textarea>
+    </div>
+    <div class="form-group form-field">
+      <label for="category">Category:</label>
+      <select name="category" id="category" class="form-control form-input">
+        <option value="">--Select Category--</option>
+        {% for category in user.category_set.all %}
+        <option value="{{ category.id }}">{{ category.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group form-field">
+      <label for="image">Image:</label>
+      <input type="file" name="image" id="image" class=" form-control form-input"  >
+    </div>
+    <div class="d-grid gap-2">
+    <input type="submit" class="btn btn-info " value="Create">
+    </div>
+  </form>
+</div>
+
+{% endblock %}
